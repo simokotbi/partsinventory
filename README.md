@@ -3,13 +3,13 @@
 >This JavaFX application helps manage an auto parts store's inventory.
 
 ## Key Features
-- View list of all available parts
-- Search parts by name, ID, or category
-- Add new parts to inventory
-- Edit existing parts
-- Remove parts from inventory
-- Track parts quantities on hand
-- Generate reports on parts sales and inventory levels
+- [x] View list of all available parts
+- [x] Search parts by name, ID, or category
+- [x] Add new parts to inventory
+- [x] Edit existing parts
+- [x] Remove parts from inventory
+- [x] Track parts quantities on hand
+- [x] Generate reports on parts sales and inventory levels
 ## Technologies Used
 - JavaFX for the GUI
 - Java for backend logic

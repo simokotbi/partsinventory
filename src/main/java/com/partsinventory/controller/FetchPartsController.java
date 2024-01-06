@@ -4,6 +4,7 @@ import java.io.IOException;
 
 import com.partsinventory.model.Part;
 import com.partsinventory.service.PartService;
+import com.partsinventory.service.ReportsService;
 
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -48,6 +49,9 @@ public class FetchPartsController {
     private Button searchButton;
 
     @FXML
+    private Button printReportButton;
+
+    @FXML
     private Button deleteButton;
 
     public SplitPane getRootSplitPane() {
@@ -81,6 +85,12 @@ public class FetchPartsController {
                     }
                     productTableView.getPartsListTableView().getItems().removeAll(selectedItems);
                 }
+            });
+
+            printReportButton.setOnAction(e -> {
+                ReportsService.getInstance().resetParameters();
+                ReportsService.getInstance().setParameter("partIds", String.join(",", selectedItems.stream().map(Part::getId).map(id -> id.toString()).toArray(String[]::new)));
+                ReportsService.getInstance().generatePartReport("part-report.jrxml", "all-parts-report.pdf");
             });
         } catch (IOException e) {
             e.printStackTrace();
