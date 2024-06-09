@@ -11,6 +11,7 @@ ALL_CATEGORIES=SELECT id, name, description,image FROM categories
 ADD_CATEGORY=INSERT INTO categories( name, description, image) VALUES(?, ?, ?)
 DELETE_CATEGORY=DELETE FROM categories WHERE id=?
 GET_CATEGORY_BY_ID=SELECT id, name,description,image FROM categories WHERE id=?
+ALL_BILLS=SELECT id, clientname, clientphone, totalprice, date FROM bills
 ADD_BILL=INSERT INTO bills(totalprice, clientname, clientphone, date) VALUES(?, ?, ?, ?)
 UPDATE_BILL=UPDATE bills SET clientname=?, clientphone=?, totalprice=? WHERE id=?
 UPDATE_COMMAND=UPDATE commands SET quantity=?, priceconsidered=? WHERE partid=? AND billid=?

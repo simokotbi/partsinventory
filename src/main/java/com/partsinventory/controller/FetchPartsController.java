@@ -87,7 +87,7 @@ public class FetchPartsController {
                         if (selectedItems.toArray().length != 0) {
                             handleSale();
                             BillService.instance.setCurrentBillId(
-                                    (int) PartService.addBill("", ""));
+                                    (int) BillService.addBill("", ""));
                             float totalPrice = 0f;
                             for (Part part : selectedItems) {
                                 if (part.getQuantity() == 0) {
@@ -97,7 +97,7 @@ public class FetchPartsController {
                                 part.setQuantity(part.getQuantity() - 1);
                                 try {
                                     PartService.updatePart(part);
-                                    PartService.addToChart(
+                                    BillService.addToChart(
                                             part.getId(),
                                             BillService.instance.getCurrentBillId(),
                                             1,
@@ -107,7 +107,7 @@ public class FetchPartsController {
                                 }
                                 totalPrice += part.getPrice();
                             }
-                            PartService.updateBill(
+                            BillService.updateBill(
                                     BillService.instance.getCurrentBillId(), "", "", totalPrice);
                         }
                     });

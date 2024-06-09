@@ -23,6 +23,7 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.control.cell.TextFieldTableCell;
 
 public class PartController {
+
     @FXML private TableView<Part> partsListTableView;
 
     @FXML private TableColumn<Part, Integer> partIdColumn;
@@ -118,7 +119,7 @@ public class PartController {
                         } catch (SQLException e) {
                             handleDatabaseError(e);
                         }
-                        PartService.updateChart(command);
+                        BillService.updateChart(command);
                     });
             partPriceColumn.setOnEditCommit(
                     event -> {
@@ -138,7 +139,7 @@ public class PartController {
                         } catch (SQLException e) {
                             handleDatabaseError(e);
                         }
-                        PartService.updateChart(command);
+                        BillService.updateChart(command);
                     });
         }
 

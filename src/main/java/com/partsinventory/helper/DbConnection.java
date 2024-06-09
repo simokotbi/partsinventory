@@ -14,6 +14,8 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.sql.rowset.CachedRowSet;
 import javax.sql.rowset.RowSetProvider;
+import org.sqlite.SQLiteConfig;
+import org.sqlite.SQLiteConfig.Pragma;
 
 public class DbConnection {
 
@@ -27,6 +29,9 @@ public class DbConnection {
     public static boolean checkDrivers() {
         try {
             Class.forName("org.sqlite.JDBC");
+            SQLiteConfig sqLiteConfig = new SQLiteConfig();
+            Properties properties = sqLiteConfig.toProperties();
+            properties.setProperty(Pragma.DATE_STRING_FORMAT.pragmaName, "yyyy-MM-dd HH:mm:ss");
             DriverManager.registerDriver(new org.sqlite.JDBC());
             return true;
         } catch (Exception e) {
@@ -98,6 +103,7 @@ public class DbConnection {
 
     public static <T> long getLastInsertedRowId(Consumer<T> operation, T parameter)
             throws SQLException {
+        Connection connection = DbConnection.getConnection();
         connection.setAutoCommit(false);
         long generatedKey = -1L;
         operation.accept(parameter);
@@ -107,6 +113,7 @@ public class DbConnection {
             generatedKey = generatedKeys.getLong(1);
         }
         connection.setAutoCommit(true);
+        connection.close();
         return generatedKey;
     }
 }

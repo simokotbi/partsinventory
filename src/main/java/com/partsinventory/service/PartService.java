@@ -7,10 +7,8 @@ import static com.partsinventory.helper.AlertHandler.handleSuccessfulEdit;
 import com.partsinventory.helper.DbConnection;
 import com.partsinventory.helper.Settings;
 import com.partsinventory.model.Category;
-import com.partsinventory.model.Command;
 import com.partsinventory.model.Part;
 import java.sql.Connection;
-import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -282,98 +280,5 @@ public class PartService {
         } catch (SQLException e) {
             handleDatabaseError(e);
         }
-    }
-
-    public static void addBill(Command command) {
-        try (Connection connection = DbConnection.getConnection();
-                PreparedStatement statement =
-                        connection.prepareStatement(DbConnection.load("ADD_BILL"))) {
-            statement.setFloat(1, 0);
-            statement.setString(2, command.getClientName());
-            statement.setString(3, command.getClientPhone());
-            statement.setDate(4, new Date(System.currentTimeMillis()));
-            statement.executeUpdate();
-        } catch (SQLException e) {
-            handleDatabaseError(e);
-        }
-    }
-
-    public static long addBill(String clientName, String clientPhone) {
-        Command command = new Command();
-        command.setClientName(clientName);
-        command.setClientPhone(clientPhone);
-        long result = -1L;
-        try {
-            result =
-                    DbConnection.getLastInsertedRowId(
-                            (Command c) -> {
-                                addBill(c);
-                            },
-                            command);
-        } catch (SQLException e) {
-            handleDatabaseError(e);
-        }
-        return result;
-    }
-
-    private static void deleteBill(int id) {
-        try (Connection connection = DbConnection.getConnection();
-                PreparedStatement preparedStatement =
-                        connection.prepareStatement(DbConnection.load("DELETE_BILL"))) {
-            preparedStatement.setInt(1, id);
-            preparedStatement.executeUpdate();
-        } catch (SQLException e) {
-            handleDatabaseError(e);
-        }
-    }
-
-    public static Boolean updateBill(
-            int id, String clientName, String clientPhone, float totalPrice) {
-        int result = 0;
-        try (Connection connection = DbConnection.getConnection();
-                PreparedStatement statement =
-                        connection.prepareStatement(DbConnection.load("UPDATE_BILL"))) {
-            statement.setString(1, clientName);
-            statement.setString(2, clientPhone);
-            statement.setFloat(3, totalPrice);
-            statement.setInt(4, id);
-            result = statement.executeUpdate();
-        } catch (SQLException e) {
-            handleDatabaseError(e);
-        }
-        return result == 1;
-    }
-
-    public static boolean addToChart(int partId, int billId, int quantity, float consideredPrice) {
-        int result = 0;
-        try (Connection connection = DbConnection.getConnection();
-                PreparedStatement statement =
-                        connection.prepareStatement(DbConnection.load("ADD_PART_TO_CHART"))) {
-            statement.setInt(1, partId);
-            statement.setInt(2, billId);
-            statement.setInt(3, quantity);
-            statement.setFloat(4, consideredPrice);
-            result = statement.executeUpdate();
-        } catch (SQLException e) {
-            handleDatabaseError(e);
-            if (result != -1L) deleteBill(billId);
-        }
-        return result == 1;
-    }
-
-    public static Boolean updateChart(Command command) {
-        int result = 0;
-        try (Connection connection = DbConnection.getConnection();
-                PreparedStatement statement =
-                        connection.prepareStatement(DbConnection.load("UPDATE_COMMAND"))) {
-            statement.setInt(1, command.getQuantity());
-            statement.setFloat(2, command.getConsideredPrice());
-            statement.setInt(3, command.getPartId());
-            statement.setInt(4, command.getBillId());
-            result = statement.executeUpdate();
-        } catch (SQLException e) {
-            handleDatabaseError(e);
-        }
-        return result == 1;
     }
 }

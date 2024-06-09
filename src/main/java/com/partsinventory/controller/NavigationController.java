@@ -117,12 +117,12 @@ public class NavigationController {
 
     @FXML
     void openBillsButton(ActionEvent event) {
-        FXMLLoader salesChartLoader =
+        FXMLLoader billsViewLoader =
                 new FXMLLoader(getClass().getResource("/views/bills-table-component.fxml"));
         presentationPane.getChildren().clear();
         try {
-            Parent salesChartViewRoot = salesChartLoader.load();
-            presentationPane.getChildren().add(salesChartViewRoot);
+            Parent billsViewRoot = billsViewLoader.load();
+            presentationPane.getChildren().add(billsViewRoot);
         } catch (IOException e) {
             e.printStackTrace();
         }

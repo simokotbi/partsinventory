@@ -12,9 +12,6 @@ public class LoginService {
         ResultSet resultSet = null;
         String query = DbConnection.load("LOGIN");
         try {
-            if (!DbConnection.checkDrivers()) {
-                return false;
-            }
             preparedStatement = DbConnection.getConnection().prepareStatement(query);
             preparedStatement.setString(1, user);
             preparedStatement.setString(2, pass);

@@ -22,7 +22,10 @@ public class MainApplication extends Application {
         DbConnection.closeConnection();
     }
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws Exception {
+        if (!DbConnection.checkDrivers()) {
+            throw new Exception("Unexpected error in database configuration.");
+        }
         launch(args);
     }
 }

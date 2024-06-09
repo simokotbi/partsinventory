@@ -3,13 +3,13 @@
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
 
-<TableView editable="true" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" tableMenuButtonVisible="true" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.partsinventory.controller.BillsController">
+<TableView fx:id="billsListTableView" editable="true" tableMenuButtonVisible="true" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.partsinventory.controller.BillsController">
   <columns>
-    <TableColumn prefWidth="75.0" text="Bill Id" />
-    <TableColumn prefWidth="75.0" text="Date" />
-      <TableColumn prefWidth="75.0" text="Total Price" />
-      <TableColumn prefWidth="75.0" text="Client Name" />
-      <TableColumn prefWidth="161.0" text="Client Phone Number" />
+    <TableColumn fx:id="billId" prefWidth="75.0" text="Bill Id" />
+    <TableColumn fx:id="date" prefWidth="75.0" text="Date" />
+      <TableColumn fx:id="totalPrice" prefWidth="75.0" text="Total Price" />
+      <TableColumn fx:id="clientName" prefWidth="75.0" text="Client Name" />
+      <TableColumn fx:id="clientPhoneNumber" prefWidth="161.0" text="Client Phone Number" />
   </columns>
    <columnResizePolicy>
       <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
